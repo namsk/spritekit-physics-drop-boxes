@@ -8,8 +8,9 @@
 
 #import "DropsScene.h"
 
-static const uint32_t floorCategory = 0x1 << 0;
-static const uint32_t boxCategory   = 0x1 << 1;
+static const uint32_t worldCategory = 0x1 << 0;
+static const uint32_t floorCategory = 0x1 << 1;
+static const uint32_t boxCategory   = 0x1 << 2;
 
 @implementation DropsScene
 - (id)initWithSize:(CGSize)size
@@ -20,6 +21,7 @@ static const uint32_t boxCategory   = 0x1 << 1;
         //  Set background
         self.backgroundColor = [SKColor grayColor];
         self.physicsWorld.contactDelegate = self;
+        self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         
         //  Draw floor and set physics properties
         SKSpriteNode *floor = [self createFloor];
@@ -31,8 +33,8 @@ static const uint32_t boxCategory   = 0x1 << 1;
         floor.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:floor.frame];
         floor.physicsBody.dynamic = NO;
         floor.physicsBody.categoryBitMask = floorCategory;
-        floor.physicsBody.contactTestBitMask = floorCategory | boxCategory;
-        floor.physicsBody.collisionBitMask = floorCategory | boxCategory;
+        floor.physicsBody.contactTestBitMask = boxCategory;
+        floor.physicsBody.collisionBitMask = boxCategory;
     }
     return self;
 }
@@ -54,9 +56,9 @@ static const uint32_t boxCategory   = 0x1 << 1;
     box.physicsBody.dynamic = YES;
     //        ball.physicsBody.usesPreciseCollisionDetection = YES;   // YES if object is small and fast
     
-    box.physicsBody.contactTestBitMask = boxCategory;
-    box.physicsBody.collisionBitMask = boxCategory | floorCategory;
-    box.physicsBody.contactTestBitMask = boxCategory | floorCategory;
+    box.physicsBody.categoryBitMask = boxCategory;
+    box.physicsBody.collisionBitMask = floorCategory | boxCategory | worldCategory;
+    box.physicsBody.contactTestBitMask = floorCategory | boxCategory | worldCategory;
     //  It creates SKPhysicsContact object internally.
     
     //        Important properties of PhysicsBody
