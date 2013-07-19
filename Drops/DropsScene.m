@@ -8,9 +8,8 @@
 
 #import "DropsScene.h"
 
-static const uint32_t worldCategory = 0x1 << 0;
-static const uint32_t floorCategory = 0x1 << 1;
-static const uint32_t boxCategory   = 0x1 << 2;
+static const uint32_t floorCategory = 0x1 << 0;
+static const uint32_t boxCategory   = 0x1 << 1;
 
 @implementation DropsScene
 - (id)initWithSize:(CGSize)size
@@ -57,8 +56,8 @@ static const uint32_t boxCategory   = 0x1 << 2;
     //        ball.physicsBody.usesPreciseCollisionDetection = YES;   // YES if object is small and fast
     
     box.physicsBody.categoryBitMask = boxCategory;
-    box.physicsBody.collisionBitMask = floorCategory | boxCategory | worldCategory;
-    box.physicsBody.contactTestBitMask = floorCategory | boxCategory | worldCategory;
+    box.physicsBody.collisionBitMask = floorCategory | boxCategory ;
+    box.physicsBody.contactTestBitMask = floorCategory | boxCategory ;
     //  It creates SKPhysicsContact object internally.
     
     //        Important properties of PhysicsBody
