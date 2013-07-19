@@ -24,16 +24,8 @@ static const uint32_t boxCategory   = 0x1 << 1;
         
         //  Draw floor and set physics properties
         SKSpriteNode *floor = [self createFloor];
-        [floor setName:@"floor"];
-        [self addChild:floor];
         
-        [floor setPosition:CGPointZero];
-
-        floor.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:floor.frame];
-        floor.physicsBody.dynamic = NO;
-        floor.physicsBody.categoryBitMask = floorCategory;
-        floor.physicsBody.contactTestBitMask = boxCategory;
-        floor.physicsBody.collisionBitMask = boxCategory;
+        [self addChild:floor];
     }
     return self;
 }
@@ -42,6 +34,15 @@ static const uint32_t boxCategory   = 0x1 << 1;
     SKSpriteNode *floor = [SKSpriteNode spriteNodeWithColor:[SKColor brownColor]
                                                        size:CGSizeMake(CGRectGetWidth(self.frame), 20)];
     [floor setAnchorPoint:CGPointZero];
+    [floor setName:@"floor"];
+    [floor setPosition:CGPointZero];
+    
+    //  Set Physics Body of Floor
+    floor.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:floor.frame];
+    floor.physicsBody.dynamic = NO;
+    floor.physicsBody.categoryBitMask = floorCategory;
+    floor.physicsBody.contactTestBitMask = boxCategory;
+    floor.physicsBody.collisionBitMask = boxCategory;
     return floor;
 }
 
