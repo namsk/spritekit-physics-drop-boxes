@@ -11,9 +11,9 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     
     // Configure the view.
     SKView * skView = (SKView *)self.view;
@@ -21,12 +21,8 @@
     skView.showsNodeCount = YES;
 
     NSLog(@"%f x %f", skView.frame.size.width, skView.frame.size.height);
-    SKScene *scene = [DropsScene sceneWithSize:CGSizeMake(skView.frame.size.height, skView.frame.size.width)];
+    SKScene *scene = [DropsScene sceneWithSize:CGSizeMake(skView.frame.size.width, skView.frame.size.height)];
     [skView presentScene:scene];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -35,7 +31,7 @@
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return NO;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
